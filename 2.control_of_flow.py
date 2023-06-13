@@ -8,6 +8,7 @@
 # else:
 #   거짓인 경우 실행하는 코드
 
+
 a =10
 if a > 5:
     pass
@@ -105,18 +106,18 @@ greeting =''
 # 연습1
 # 사용자에게 영단어 하나를 입력받아서 알파벳 하나씩 출력
 
-word = input('영단어를 입력해주세요 : ')
-print(word)
+# word = input('영단어를 입력해주세요 : ')
+# print(word)
 
-for char in word:
-    print(char)
+# for char in word:
+#     print(char)
 
-numbers = [1, 2, 3, 4, 5]
+# numbers = [1, 2, 3, 4, 5]
 
-for number in numbers:
-    print(number)
+# for number in numbers:
+#     print(number)
 
-print(number)
+# print(number)
 
 # 연습2
 # 반복문과 조건문을 같이 사용해서 1~20까지의 숫자 중에
@@ -140,12 +141,172 @@ print(number)
 
 menus = ['라면', '김밥', '돈까스', '삼겹살', '쫄면']
 
-for i in range(len(menus)):
-    print(menus[i])
+# for i in range(len(menus)):
+#     print(menus[i])
 # menus의 수량이 변해도 유동적으로 맞춰 반복되도록 설정함
 
-for idx, menu in enumerate(menus):
-    print(idx, menu)
+# for idx, menu in enumerate(menus):
+#     print(idx, menu)
 
 # enumerate : menus 항목 하나하나와 index 0,1,2... 도 함께
 # idx, menu = (0, '라면') ★ 변수가 2개 인덱스/값
+
+# 1.2.3 dictionary 반복
+
+info ={
+   'name': 'hyk',
+   'location': 'seoul',
+
+}
+
+for i in info:
+    print(i)
+    print(info[i])
+# 반복문으로 출력 시 key가 출력됨
+
+# 1. dictionary (key 반복)
+
+for key in info:
+    print(key)
+
+print('---')
+
+# 2. key 반복
+for key in info.keys():
+    print(key)
+print('---')
+#키들을 반복한다고 keys()가 적혀있어 보다 명확함
+
+# 3. value 반복
+for value in info.values():
+    print(value)
+print('---')
+
+# 4. key, value 반복
+for key, value in info.items():
+    print(key, value)
+
+#풀어서 쓰기
+for (key, value) in [   ('n', 'c'), ('l', 's')  ]:
+    print(key, value)
+#튜플 안이 반복작업된다는 것이 아니라
+# ( n , c ) 이 덩어리 째로 for 문돌아가는데, 분해되어 할당됨
+
+# 이전에 튜플 설명 시 2개의 변수에 각각 따로 할당할 수 있다고 설명했었음
+# b, c = (1, 2) <=이거
+# b에 1, c에 2를 순서대로 할당함
+
+
+print(info.keys())
+# keys 사용 시 키들을 모두 모은 객체(이경우 리스트)를 하나 만들어 반복문을 돌리게 됨
+print(info.items())
+# 이것도 리스트가 만들어지는데, 리스트 안에 튜플()이 만들어짐   [  (키 밸류), (키 밸류)  ]
+
+
+# 딕셔너리의 경우 반복문 돌린다면 전체를 다 돌리거나, 필요한것을 선택적으로 접근하기 때문에 딕셔너리의 순서는 중요하지 않음
+
+
+# 연습
+blood_type = {
+    'A': 10,
+    'B': 8,
+    'O': 5,
+    'AB': 5,
+}
+
+# 1. 혈액형 종류는 다음과 같습니다. A, B, O, AB  (딕셔너리 키 목록 출력)
+# 2. 혈액형 종류는 다음과 같습니다. A, B, O, AB (key)
+# 3. 학생수느 28명 입니다.
+# 4. A형은 10명입니다, B형은~ 
+
+# 1, 2번 ,keys() 있고 없고 차이이지만 keys()사용하는 것을 권장
+result = []
+for key in blood_type.keys():
+    result.append(key) #리스트에 연이어서 넣기
+result = ', '.join(result)
+print(f'혈액형 종류는 다음과 같습니다. {result}')
+# 파이썬의 (거의) 모든 것은 객체. 객체는 어떤 실행할 수 있는 기능을 가진 것. 기능은 메소드.
+
+# 3.
+result = 0
+for value in blood_type.values():
+    result = result + value
+    #result += value
+print(f'학생수는 {result}명 입니다.')
+
+# 4.
+for k, v in blood_type.items(): # k와 v는 for문안에서만 쓰는 임시 변수이름이기 때문에 어떻게 이름지어도 괜찮
+    print(f'{k}형은 {v}명입니다.')
+
+
+# 1.2.4 break
+
+# for i in range(10):
+#     print(i)
+#     if i > 2:
+#        print('2보다 크니까 break로 끝냅니다')
+#        break
+# print('---')
+# 연습
+#보리는 출력, 쌀이 나오면 잡았다고 하고 멈춤
+rice = ['보리', '보리', '보리', '쌀', '보리', '보리']
+
+for r in rice:
+    if r =='쌀':
+        print('쌀 잡았다!')
+        break
+    print(r)
+# alt + 방향키 > 코드 위치 위아래 변경
+print(type(r)) # r값은 rice의 str값
+print('---')
+# 1.2.5 continue
+for i in range(5):
+    if i % 2: #2로 나눈 나머지가 1이면 True
+        continue # 이아래는 스킵, 다음 for문 반복 계속진행
+    print(f'{i}는 짝수입니다.')
+print('---')
+# 연습
+age = [6, 10, 30, 20, 60, 4]
+# 20살 이상이면 '성인입니다', 미만이라면 아무것도 X
+
+for a in age:
+    if a >= 20:
+        print(f'{a}살 성인입니다')
+        continue
+print('---')
+
+for a in age:
+    if a < 20:
+        continue
+    print(f'{a}살 성인입니다')
+print('---')
+
+
+# 1.2.6 else (for 문에서의 else)
+
+for i in range(50):
+    print(i)
+    if i == 1:
+        print(f'{i}번째에서 break')
+        break
+
+else:
+    print('break를 만나지 않았습니다')
+print('---')
+
+# 연습
+numbers = [1, 5, 10]
+print(5 in numbers)
+print('---')
+
+# for/else 문으로 numbers를 반복하면서 특정 숫자가 있으면 True, 없으면 False출력
+my_number = 1
+for n in numbers:
+    if n == my_number:
+        print(f'True / {n} 있습니다. ')
+        break
+else: # for문의 끝까지 다 확인했으나, if문에 거치는 경우가 없어서 else 실행
+    print(f'False / {my_number} 없습니다.')
+
+# 1.2.7 match
+# 다른 언어에서의 case문
