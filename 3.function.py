@@ -175,7 +175,7 @@ def fake_dict(**kwargs):
     for k, v in kwargs.items(): # items() : key, value를 뽑아냄
         result.append(f'{k}: {v}')
     print(', '.join(result))
-fake_dict(name='홍길동', location='서울')
+# fake_dict(name='홍길동', location='서울')
 
 
 # 예시
@@ -187,7 +187,7 @@ def user(username, password, password_confirm):
         print('비밀번호가 일치하지 않습니다.')
 
 # user 함수에 이렇게 인자를 넣어도 되고
-user('홍길동','1234','12345')
+# user('홍길동','1234','12345')
 
 # 이렇게 별도로 만들어 **kwargs(별 두개와 키워드 아규먼츠)로 통째로 넣을 수도 있음
 # 파이썬이 적절히 풀어서 제자리에 넣어줌
@@ -197,4 +197,116 @@ my_user = {
     'password_confirm': 'qwer',
 }
 
-user(**my_user)
+# user(**my_user)
+
+
+# 6/14
+# 6. lambda
+# lambda parameter : expression
+# 람다는 콜론 : 을 기준으로 앞은 매개변수, 뒤는 연산
+def my_sum(a, b):
+    return a+b
+
+result = my_sum(1, 5)
+# print(result)
+
+# print((lambda a,b: a + b)(1, 2))
+
+
+def make_incrementor(n):
+    return lambda x: x + n
+
+f = make_incrementor(42)
+f = lambda x : x + 42
+# f변수에 할당되면서 f는 함수로 호출할 수 있게됨
+def f(x):
+    return x + 42
+# 42가 저장됨
+
+# print(f(100))
+# 100을 넣고 print 시 142가됨
+# 함수재사용보다는 선언한 당시에 즉시 사용하는 경우에 가까움
+
+# 7. 이름공간 및 스코프(scope)
+# 앞글자만 따서 LEGB - 우선순위순
+
+# 1. Local 로컬스코프 : 정의된 함수 내부
+# - 함수가 실행된 시점 이후부터 리턴할 때까지 존재
+# 2. Enclosed : 상위함수
+# (함수 안의 함수(중첩)가 가능하므로)
+# - 함수가 실행된 시점 이후부터 리턴할 때까지 존재
+# 3. Global : 함수 밖 or import된 모듈
+# - 모듈이 호출된 시점 이후 끝까지 존재
+# 4. Built-in : 파이썬에 내장되어있는 함수 혹은 변수
+# - 파이썬이 실행된 이후 끝까지 존재
+
+# 기존의 함수 이름과 똑같은 변수를 생성하여 이름이 겹친 상태
+# print = 'hello'
+# print(print)
+# print를 문자열 값으로 할당하고 함수식으로 호출하면 
+# "str형식은 함수가 아니어서 실행할 수 없어" 라고 하며 에러남
+
+a = 1 # 전역변수 a
+def localscope(a):
+    # 로컬변수 a > 함수 내부에서만 쓰이는 변수
+    print(a)
+
+# localscope(10)
+
+# 타입힌팅
+# 함수 인자의 타입이 뭔지 힌트를 준다 / 함수 어노테이션
+def my_sum(a: int, b: int) -> int:
+    return a+b
+# a, b 인자는 int형으로 받을거고, 리턴 결과도 int형이 될 것이다 라는 힌트
+
+global_a  = 1 
+def localscope2():
+    global global_a
+    global_a = 2
+    print(global_a)
+
+localscope2()
+# print(global_a)
+# 함수 내부값만 실행되고 바깥의 변수값은 변경이안됨
+# 바깥에 있는 변수(전역변수)를 내부에서 사용할거면 global 처리를 해줘야함
+
+# 8. 재귀함수(recursive function)
+
+# 예제, 팩토리얼 계산 일반 함수
+def fact(n):
+    result = 1
+    while n > 1:
+        result = result * n
+        n -= 1
+    return result
+# => 120
+# print(fact(6))
+
+
+# 팩토리얼 재귀
+def factorial(n):
+    if n <=1:
+        return n
+    else:
+        return n * factorial(n-1)
+# print(factorial(5))
+
+
+# 피보나치 수열 일반 함수
+def fib(n):
+    result = [1, 1]
+    for i in range(1, n):
+        end1 = result[-1] # 끝에서 첫번째 값, 리스트 자체적 기능 표기법
+        end2 = result[len(result) - 2] # 끝에서 두번째 값len함수 활용 표기법
+        fib_num = end1 + end2
+        result.append(fib_num)
+    return result[-1]
+# print(fib(10))
+
+# 피보나치 수열 재귀
+def fib(n):
+    if n == 1 or n == 0:
+        return 1 # 반복을 멈출 기준 작성
+    else:
+        return fib(n-1) + fib(n-2) # 핵심내용 작성
+# print(fib(10))

@@ -225,7 +225,17 @@ for key in blood_type.keys():
     result.append(key) #리스트에 연이어서 넣기
 result = ', '.join(result)
 print(f'혈액형 종류는 다음과 같습니다. {result}')
-# 파이썬의 (거의) 모든 것은 객체. 객체는 어떤 실행할 수 있는 기능을 가진 것. 기능은 메소드.
+# 파이썬의 (거의) 모든 것은 객체. 
+# 객체는 어떤 실행할 수 있는 기능을 가진 것. 
+# 기능이란 메소드.
+
+print('---')
+print('종류별 확인')
+print(f'blood_type (딕셔너리 통째): {blood_type}')
+print(f'.items() (키+밸류 한덩이씩) : {blood_type.items()}')
+print(f'.keys() (키만): {blood_type.keys()}')
+print(f'.values() (밸류만): {blood_type.values()}')
+print('---')
 
 # 3.
 result = 0
@@ -234,10 +244,13 @@ for value in blood_type.values():
     #result += value
 print(f'학생수는 {result}명 입니다.')
 
+print('---')
+
 # 4.
 for k, v in blood_type.items(): # k와 v는 for문안에서만 쓰는 임시 변수이름이기 때문에 어떻게 이름지어도 괜찮
     print(f'{k}형은 {v}명입니다.')
 
+print('---')
 
 # 1.2.4 break
 
